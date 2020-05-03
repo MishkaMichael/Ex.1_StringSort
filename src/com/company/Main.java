@@ -27,12 +27,7 @@ public class Main {
               }
         }
         List<Map.Entry<String,Integer>> list = new ArrayList(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String,Integer>>() {
-            @Override
-            public int compare (Map.Entry<String,Integer> a, Map.Entry<String,Integer> b) {
-                return b.getValue() - a.getValue();
-            }
-        });
+        list.sort((Map.Entry<String, Integer> a, Map.Entry<String, Integer> b) -> b.getValue() - a.getValue());
 
 //        List<Map.Entry<String,Integer>> sortedList = map
 //                .entrySet()
