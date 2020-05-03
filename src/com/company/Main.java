@@ -1,23 +1,22 @@
 package com.company;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Эта программа сортирует строку по словам! \n      Введите строку");
+        System.out.println("Эта программа сортирует строку по словам! \n      Введите строку из латинских символов");
         Scanner in = new Scanner(System.in);
         String s = in.nextLine();
-        String sortedString1 = getSortMassiv(s);
-        //String sortedString2 = getSortHashmap(s);
-        System.out.println("Сортировка массивом: \n" + sortedString1);
-        //System.out.println("Сортировка с помощью HashMap: \n" + sortedString2);
+        String sortedString = getSortString(s);
+        System.out.println("Сортировка HashMap: \n" + sortedString);
     }
 
 
-    public static String getSortMassiv(String s) {
+    public static String getSortString(String s) {
         String words [] = s.split("\\W+");
-        StringBuilder builder = new StringBuilder();
+        //  StringBuilder builder = new StringBuilder();
+        HashMap<String,Integer> map = new HashMap<>();
         for (int i = 0; i < words.length; i++) {
                     int count = 0;
                     String currentWord = words[i];
@@ -26,14 +25,23 @@ public class Main {
                             count += 1;
                         }
                     }
-                    //System.out.println( currentWord + " " + count + ";" );
-                    builder.append( currentWord + " " + count + ";");
+                    map.put(currentWord, count);
+                    //  builder.append( currentWord + " " + count + ";");
         }
-        return builder.toString();
-    }
+        List list = new ArrayList(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String,Integer>>() {
+            @Override
+                    public int compare (Map.Entry<String,Integer> a, Map.Entry<String,Integer> b) {
+                return a.getValue() - b.getValue();
+            }
+        });
+        Collections.reverse(list);
 
-    public String getSortHashmap(String s) {
+        /*map.entrySet().stream()
+                .sorted(Map.Entry.<String,Integer>comparingByValue());
+         System.out.println(map);
+        */
 
-        return s;
+        return String.valueOf(list);     //builder.toString();
     }
 }
