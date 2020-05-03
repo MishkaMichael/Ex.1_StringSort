@@ -30,10 +30,9 @@ public class Main {
         Collections.sort(list, new Comparator<Map.Entry<String,Integer>>() {
             @Override
             public int compare (Map.Entry<String,Integer> a, Map.Entry<String,Integer> b) {
-                return a.getValue() - b.getValue();
+                return b.getValue() - a.getValue();
             }
         });
-        Collections.reverse(list);
 
 //        List<Map.Entry<String,Integer>> sortedList = map
 //                .entrySet()
