@@ -18,18 +18,13 @@ public class Main {
 
     public static String getSortString(String s) {
         String words [] = s.split("\\W+");
-        //  StringBuilder builder = new StringBuilder();
         HashMap<String,Integer> map = new HashMap<>();
-        for (int i = 0; i < words.length; i++) {
-            int count = 0;
-            String currentWord = words[i];
-            for (String word : words) {
-                if (currentWord.equals(word)) {
-                    count += 1;
-                }
-            }
-            map.put(currentWord, count);
-            //  builder.append( currentWord + " " + count + ";");
+        for (String word : words) {
+            if (map.containsKey(word)) {
+                map.put(word, map.get(word) + 1);
+            } else {
+                map.put(word, 1);
+              }
         }
         List<Map.Entry<String,Integer>> list = new ArrayList(map.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String,Integer>>() {
