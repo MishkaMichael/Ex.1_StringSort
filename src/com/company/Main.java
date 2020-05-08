@@ -2,18 +2,20 @@ package com.company;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Main {
 
-    private static int n = 10;
+    private static int n = 20;
+    private static String pathname = "C:\\Users\\User\\Documents\\Java\\StringSort\\Text1.txt";
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         System.out.println("Эта программа сортирует файл по словам! \n");
         Long start = System.currentTimeMillis();
 
         // Чтение файла и создание строки
-        Scanner in = new Scanner(new File("C:\\Users\\User\\Documents\\Java\\StringSort\\Text1.txt"));
+        Scanner in = new Scanner(new File(pathname));
         StringBuilder builder = new StringBuilder();
         while (in.hasNext())   builder.append(in.nextLine());
         String s = builder.toString();
@@ -26,7 +28,7 @@ public class Main {
 
     public static String getSortString(String s, int n) {
         int count = 0;
-        String words [] = s.split(" |\\, |\\. ");
+        String words [] = s.split("\\s+|\\, |\\. ");
         HashMap<String,Integer> map = new HashMap<>();
         for (String word : words) {
             count ++;
@@ -39,6 +41,7 @@ public class Main {
         List<Map.Entry<String,Integer>> list = new ArrayList(map.entrySet());
         list.sort((Map.Entry<String, Integer> a, Map.Entry<String, Integer> b) -> b.getValue() - a.getValue());
         System.out.println("Число слов в тексте = " + count);
-        return String.valueOf(list.subList(0,n));
+        if (list.size() > n) return String.valueOf(list.subList(0,n));
+        else return String.valueOf(list);
     }
 }
